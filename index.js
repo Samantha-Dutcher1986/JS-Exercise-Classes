@@ -173,7 +173,7 @@ class Student extends Lambdasian{
     this.favSubjects = person.favSubjects
   }
 listSubjects(){
-  return this.favSubjects.join('HTML, CSS, JS').toString() + '!'
+  return `Loving ${this.favSubjects}!`
 }
 PRAssignment(subject){
   return `${this.name} has submitted a PR for ${subject}`
@@ -199,8 +199,8 @@ sprintChallenge(subject){
 class ProjectManager extends Instructor {
   constructor(person){
     super(person)
-    this.gradClassName = 'Web25'
-    this.favInstructor = 'Luis'
+    this.gradClassName = person.gradClassName
+    this.favInstructor = person.favInstructor
   }
   standUp(channel){
     return `${this.name} announces to ${channel}, @channel standy times!`
