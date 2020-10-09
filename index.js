@@ -41,8 +41,24 @@ class Airplane {
 */
 
 class Person {
-
+  constructor(name, age){
+    this.name = name
+    this.age = age
+    this.stomach = []
+  }
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible)
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
 }
+
 
 /*
   TASK 2
@@ -59,7 +75,27 @@ class Person {
 */
 
 class Car {
-
+  constructor(model,mpg){
+    this.model = model
+    this.milesPerGallon = mpg
+    this.tank = 0
+    this.odometer = 0
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons
+  }
+  drive(distance){
+    const miles = this.tank * this.milesPerGallon
+    if (distance <= miles) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - distance / this.milesPerGallon
+    } else {
+      this.odometer = this.odometer + miles;
+      this.tank = 0
+        this.tank = 0
+        return `I ran out of fuel at ${this.odometer} miles!`
+      }
+  }
 }
 
 /*
@@ -75,7 +111,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(person){
+    this.name = person.name
+    this.age = person.age
+    this.location = person.location
+  }
+  speak(){
+    return `Hellow my name is ${this.name}, I am from ${this.location}`
+  }
 }
 
 /*
@@ -92,8 +135,19 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor (person){
+    super(person)
+    this.specialty = person.specialty
+    this.favLanguage = person.favLanguage
+    this.catchPhrase = person.catchPhrase
+  }
+  demo(subject){
+    return `Today we are learning ${subject}`
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
 }
 
 /*
@@ -111,8 +165,22 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian{
+  constructor(person){
+    super(person)
+    this.previousBackground = person.previousBackground
+    this.className = person.className
+    this.favSubjects = person.favSubjects
+  }
+listSubjects(){
+  return this.favSubjects.join('HTML, CSS, JS').toString() + '!'
+}
+PRAssignment(subject){
+  return `${this.name} has submitted a PR for ${subject}`
+}
+sprintChallenge(subject){
+  return `${this.name} has begun sprint challenge of ${subject}`
+}
 }
 
 /*
@@ -128,8 +196,18 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor {
+  constructor(person){
+    super(person)
+    this.gradClassName = 'Web25'
+    this.favInstructor = 'Luis'
+  }
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode(student,subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
+  }
 }
 
 /*
@@ -153,4 +231,13 @@ if (typeof exports !== 'undefined') {
   if (Instructor) { module.exports.Instructor = Instructor }
   if (Student) { module.exports.Student = Student }
   if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
+} else {
+  var results = results || {}
+  if (Airplane) { results.Airplane = Airplane }
+  if (Person) { results.Person = Person }
+  if (Car) { results.Car = Car }
+  if (Lambdasian) { results.Lambdasian = Lambdasian }
+  if (Instructor) { results.Instructor = Instructor }
+  if (Student) { results.Student = Student }
+  if (ProjectManager) { results.ProjectManager = ProjectManager }
 }
